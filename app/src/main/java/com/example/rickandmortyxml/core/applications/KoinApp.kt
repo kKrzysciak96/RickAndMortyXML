@@ -11,7 +11,7 @@ class KoinApp : Application() {
         startKoin()
     }
 
-    fun startKoin() {
+    private fun startKoin() {
         startKoin {
             androidContext(this@KoinApp)
             modules(koinInjector)
