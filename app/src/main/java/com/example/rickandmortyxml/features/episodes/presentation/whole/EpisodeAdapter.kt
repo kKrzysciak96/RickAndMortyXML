@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.episodes.presentation
+package com.example.rickandmortyxml.features.episodes.presentation.whole
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +12,18 @@ import com.example.rickandmortyxml.features.episodes.presentation.model.EpisodeD
 class EpisodeAdapter : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
 
     private val episodes: MutableList<EpisodeDisplayable> = mutableListOf()
+    private var listener: ((EpisodeDisplayable) -> Unit)? = null
+
 
     fun setEpisodes(episodes: List<EpisodeDisplayable>) {
         if (episodes.isNotEmpty()) this.episodes.clear()
 
         this.episodes.addAll(episodes)
         notifyDataSetChanged()
+    }
 
+    fun setOnClickListener(listener: (EpisodeDisplayable) -> Unit) {
+        this.listener = listener
     }
 
     inner class EpisodeViewHolder(view: View) : ViewHolder(view) {
@@ -27,6 +32,7 @@ class EpisodeAdapter : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() 
         fun bind(episode: EpisodeDisplayable) {
             with(binding) {
                 episodeName.text = episode.name
+                listener?.let { listener -> root.setOnClickListener { listener(episode) } }
             }
         }
     }

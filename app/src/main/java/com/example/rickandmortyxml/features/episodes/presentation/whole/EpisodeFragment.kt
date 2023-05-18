@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.episodes.presentation
+package com.example.rickandmortyxml.features.episodes.presentation.whole
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,6 +35,7 @@ class EpisodeFragment() : BaseFragment<EpisodeViewModel>(R.layout.fragment_episo
         with(binding.episodeRecyclerview) {
             adapter = episodeAdapter
         }
+        setOnClickListener()
     }
 
     override fun initObservers() {
@@ -44,10 +45,12 @@ class EpisodeFragment() : BaseFragment<EpisodeViewModel>(R.layout.fragment_episo
 
     override fun onIdleState() {
         super.onIdleState()
+        binding.episodeProgressBar.visibility = View.GONE
     }
 
     override fun onPendingState() {
         super.onPendingState()
+        binding.episodeProgressBar.visibility = View.VISIBLE
     }
 
     private fun observeEpisodes() {
@@ -59,6 +62,10 @@ class EpisodeFragment() : BaseFragment<EpisodeViewModel>(R.layout.fragment_episo
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun setOnClickListener() {
+        episodeAdapter.setOnClickListener { viewModel.onEpisodeClick(it) }
     }
 
 }

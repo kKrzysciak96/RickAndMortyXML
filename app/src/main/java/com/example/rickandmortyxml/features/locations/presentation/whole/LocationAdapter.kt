@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.locations.presentation
+package com.example.rickandmortyxml.features.locations.presentation.whole
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +11,15 @@ import com.example.rickandmortyxml.features.locations.presentation.model.Locatio
 
 class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
     val locations: MutableList<LocationDisplayable> = mutableListOf()
-
+    var listener: ((LocationDisplayable) -> Unit)? = null
     fun setLocations(locations: List<LocationDisplayable>) {
         if (locations.isNotEmpty()) this.locations.clear()
         this.locations.addAll(locations)
         notifyDataSetChanged()
+    }
+
+    fun setOnClickListener(listener: (LocationDisplayable) -> Unit) {
+        this.listener = listener
     }
 
     inner class LocationViewHolder(view: View) : ViewHolder(view) {
@@ -23,6 +27,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
         fun bind(location: LocationDisplayable) {
             with(binding) {
                 locationName.text = location.name
+                listener?.let { listener -> root.setOnClickListener { listener(location) } }
             }
         }
     }

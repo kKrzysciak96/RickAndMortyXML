@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_character_screen"
+        android:icon="@drawable/ic_character"
+        android:title="@string/title_character" />
+
+    <item
+        android:id="@+id/navigation_episode_screen"
+        android:icon="@drawable/ic_episode"
+        android:title="@string/title_episode" />
+
+    <item
+        android:id="@+id/navigation_location_screen"
+        android:icon="@drawable/ic_location"
+        android:title="@string/title_location" />
+
+</menu>

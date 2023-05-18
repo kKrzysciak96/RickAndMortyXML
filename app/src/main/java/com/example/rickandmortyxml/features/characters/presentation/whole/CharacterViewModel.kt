@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.characters.presentation
+package com.example.rickandmortyxml.features.characters.presentation.whole
 
 
 import androidx.lifecycle.LiveData
@@ -9,12 +9,15 @@ import com.example.rickandmortyxml.core.base.BaseViewModel
 import com.example.rickandmortyxml.core.exception.ErrorMapper
 import com.example.rickandmortyxml.features.characters.domain.GetCharacterUseCase
 import com.example.rickandmortyxml.features.characters.domain.model.CharacterDomain
+import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigator
 import com.example.rickandmortyxml.features.characters.presentation.model.CharacterDisplayable
 
 class CharacterViewModel(
     private val getCharacterUseCase: GetCharacterUseCase,
-    errorMapper: ErrorMapper
-) : BaseViewModel(errorMapper) {
+    private val characterNavigator: CharacterNavigator,
+    errorMapper: ErrorMapper,
+
+    ) : BaseViewModel(errorMapper) {
 
     private val _characters by lazy {
         MutableLiveData<List<CharacterDomain>>().also {
@@ -34,5 +37,9 @@ class CharacterViewModel(
             listResult.onSuccess { mutableLiveData.value = it }
             listResult.onFailure { handleFailure(it) }
         }
+    }
+
+    fun onCharacterClick(characterDisplayable: CharacterDisplayable) {
+        characterNavigator.openCharacterDetailsScreen(characterDisplayable)
     }
 }

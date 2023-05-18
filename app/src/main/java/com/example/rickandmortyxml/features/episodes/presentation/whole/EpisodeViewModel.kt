@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.episodes.presentation
+package com.example.rickandmortyxml.features.episodes.presentation.whole
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,9 +8,14 @@ import com.example.rickandmortyxml.core.base.BaseViewModel
 import com.example.rickandmortyxml.core.exception.ErrorMapper
 import com.example.rickandmortyxml.features.episodes.domain.GetEpisodeUseCase
 import com.example.rickandmortyxml.features.episodes.domain.model.EpisodeDomain
+import com.example.rickandmortyxml.features.episodes.navigation.EpisodeNavigator
 import com.example.rickandmortyxml.features.episodes.presentation.model.EpisodeDisplayable
 
-class EpisodeViewModel(private val getEpisodeUseCase: GetEpisodeUseCase, errorMapper: ErrorMapper) :
+class EpisodeViewModel(
+    private val getEpisodeUseCase: GetEpisodeUseCase,
+    private val episodeNavigator: EpisodeNavigator,
+    errorMapper: ErrorMapper
+) :
     BaseViewModel(errorMapper) {
 
 
@@ -27,6 +32,10 @@ class EpisodeViewModel(private val getEpisodeUseCase: GetEpisodeUseCase, errorMa
             }
             listResult.onFailure { handleFailure(it) }
         }
+    }
+
+    fun onEpisodeClick(episodeDisplayable: EpisodeDisplayable) {
+        episodeNavigator.openEpisodeDetailsScreen(episodeDisplayable)
     }
 }
 

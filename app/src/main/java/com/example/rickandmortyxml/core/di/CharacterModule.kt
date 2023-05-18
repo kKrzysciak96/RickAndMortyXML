@@ -3,14 +3,19 @@ package com.example.rickandmortyxml.core.di
 import com.example.rickandmortyxml.core.api.RickAndMortyApi
 import com.example.rickandmortyxml.core.exception.ErrorMapper
 import com.example.rickandmortyxml.core.exception.ErrorWrapper
+import com.example.rickandmortyxml.core.navigation.FragmentNavigator
 import com.example.rickandmortyxml.core.network.NetworkStateProvider
 import com.example.rickandmortyxml.features.characters.data.local.CharacterDao
 import com.example.rickandmortyxml.features.characters.data.repository.CharacterRepositoryImpl
 import com.example.rickandmortyxml.features.characters.domain.CharacterRepository
 import com.example.rickandmortyxml.features.characters.domain.GetCharacterUseCase
-import com.example.rickandmortyxml.features.characters.presentation.CharacterAdapter
-import com.example.rickandmortyxml.features.characters.presentation.CharacterFragment
-import com.example.rickandmortyxml.features.characters.presentation.CharacterViewModel
+import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigator
+import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigatorImpl
+import com.example.rickandmortyxml.features.characters.presentation.details.CharacterDetailsFragment
+import com.example.rickandmortyxml.features.characters.presentation.details.CharacterDetailsViewModel
+import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterAdapter
+import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterFragment
+import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -30,7 +35,16 @@ val characterModule = module {
     factory { GetCharacterUseCase(get<CharacterRepository>()) }
 
     //presentation
-    viewModel { CharacterViewModel(get<GetCharacterUseCase>(), get<ErrorMapper>()) }
+    factory<CharacterNavigator> { CharacterNavigatorImpl(get<FragmentNavigator>()) }
+    viewModel {
+        CharacterViewModel(
+            get<GetCharacterUseCase>(),
+            get<CharacterNavigator>(),
+            get<ErrorMapper>()
+        )
+    }
     factory { CharacterAdapter() }
     factory { CharacterFragment() }
+    viewModel { CharacterDetailsViewModel(get<ErrorMapper>()) }
+    factory { CharacterDetailsFragment() }
 }

@@ -1,10 +1,12 @@
 package com.example.rickandmortyxml.features.characters.presentation.model
 
+import android.os.Parcelable
 import com.example.rickandmortyxml.features.characters.domain.model.CharacterDomain
 import com.example.rickandmortyxml.features.characters.domain.model.LocationDomain
 import com.example.rickandmortyxml.features.characters.domain.model.OriginDomain
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class CharacterDisplayable(
     val created: String,
     val episode: List<String>,
@@ -18,7 +20,7 @@ data class CharacterDisplayable(
     val status: String,
     val type: String,
     val url: String
-) {
+) : Parcelable {
     constructor(characterDomain: CharacterDomain) : this(
         created = characterDomain.created,
         episode = characterDomain.episode,
@@ -35,20 +37,22 @@ data class CharacterDisplayable(
     )
 }
 
+@Parcelize
 data class LocationDisplayable(
     val name: String,
     val url: String
-) {
+) : Parcelable {
     constructor(locationDomain: LocationDomain) : this(
         name = locationDomain.name,
         url = locationDomain.url
     )
 }
 
+@Parcelize
 data class OriginDisplayable(
     val name: String,
     val url: String
-) {
+) : Parcelable {
     constructor(originDomain: OriginDomain) : this(
         name = originDomain.name,
         url = originDomain.url

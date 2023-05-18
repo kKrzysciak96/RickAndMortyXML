@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.locations.presentation
+package com.example.rickandmortyxml.features.locations.presentation.whole
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,6 +37,7 @@ class LocationFragment : BaseFragment<LocationViewModel>(R.layout.fragment_locat
             adapter = locationAdapter
             setHasFixedSize(true)
         }
+        setOnClickListener()
     }
 
     override fun initObservers() {
@@ -46,10 +47,12 @@ class LocationFragment : BaseFragment<LocationViewModel>(R.layout.fragment_locat
 
     override fun onIdleState() {
         super.onIdleState()
+        binding.locationProgressBar.visibility = View.GONE
     }
 
     override fun onPendingState() {
         super.onPendingState()
+        binding.locationProgressBar.visibility = View.VISIBLE
     }
 
     private fun observeLocations() {
@@ -61,5 +64,9 @@ class LocationFragment : BaseFragment<LocationViewModel>(R.layout.fragment_locat
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setOnClickListener() {
+        locationAdapter.setOnClickListener { viewModel.onLocationClick(it) }
     }
 }

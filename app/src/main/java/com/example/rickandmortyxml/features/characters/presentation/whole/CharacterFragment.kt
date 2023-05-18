@@ -1,4 +1,4 @@
-package com.example.rickandmortyxml.features.characters.presentation
+package com.example.rickandmortyxml.features.characters.presentation.whole
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,6 +36,7 @@ class CharacterFragment : BaseFragment<CharacterViewModel>(R.layout.fragment_cha
             adapter = characterAdapter
             setHasFixedSize(true)
         }
+        setOnClickListener()
     }
 
     override fun initObservers() {
@@ -45,10 +46,12 @@ class CharacterFragment : BaseFragment<CharacterViewModel>(R.layout.fragment_cha
 
     override fun onIdleState() {
         super.onIdleState()
+        binding.characterProgressBar.visibility = View.GONE
     }
 
     override fun onPendingState() {
         super.onPendingState()
+        binding.characterProgressBar.visibility = View.VISIBLE
     }
 
     private fun observeCharacters() {
@@ -60,6 +63,13 @@ class CharacterFragment : BaseFragment<CharacterViewModel>(R.layout.fragment_cha
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setOnClickListener() {
+        characterAdapter.setOnClickListener {
+            viewModel.onCharacterClick(it)
+        }
+
     }
 
 
