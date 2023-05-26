@@ -11,6 +11,6 @@ data class EpisodesResponse(
 data class EpisodeRemoteInfo(
     @SerializedName("count") val count: Int,
     @SerializedName("pages") val pages: Int,
-    @SerializedName("next") val next: String,
+    @SerializedName("next") val next: String?,
     @SerializedName("prev") val prev: String?
 )

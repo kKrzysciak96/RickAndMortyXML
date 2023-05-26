@@ -7,18 +7,16 @@ data class CharacterDomain(
     val gender: String,
     val id: Int,
     val image: String,
-    val location: LocationDomain,
+    val location: CharacterLocationDomain,
     val name: String,
     val origin: OriginDomain,
     val species: String,
     val status: String,
     val type: String,
     val url: String
-) {
+)
 
-}
-
-data class LocationDomain(
+data class CharacterLocationDomain(
     val name: String,
     val url: String
 )

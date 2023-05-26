@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.rickandmortyxml.features.characters.domain.model.CharacterDomain
-import com.example.rickandmortyxml.features.characters.domain.model.LocationDomain
+import com.example.rickandmortyxml.features.characters.domain.model.CharacterLocationDomain
 import com.example.rickandmortyxml.features.characters.domain.model.OriginDomain
 
 
@@ -16,8 +16,8 @@ data class CharacterCached(
     @PrimaryKey
     val id: Int,
     val image: String,
-    @Embedded("LocationCached")
-    val location: LocationCached,
+    @Embedded("CharacterLocationCached")
+    val location: CharacterLocationCached,
     val name: String,
     @Embedded("OriginCached")
     val origin: OriginCached,
@@ -32,7 +32,7 @@ data class CharacterCached(
         gender = characterDomain.gender,
         id = characterDomain.id,
         image = characterDomain.image,
-        location = LocationCached(characterDomain.location),
+        location = CharacterLocationCached(characterDomain.location),
         name = characterDomain.name,
         origin = OriginCached(characterDomain.origin),
         species = characterDomain.species,
@@ -47,7 +47,7 @@ data class CharacterCached(
         gender = gender,
         id = id,
         image = image,
-        location = location.toLocationDomain(),
+        location = location.toCharacterLocationDomain(),
         name = name,
         origin = origin.toOriginDomain(),
         species = species,
@@ -57,16 +57,16 @@ data class CharacterCached(
     )
 }
 
-data class LocationCached(
+data class CharacterLocationCached(
     val name: String,
     val url: String
 ) {
-    constructor(locationDomain: LocationDomain) : this(
+    constructor(locationDomain: CharacterLocationDomain) : this(
         name = locationDomain.name,
         url = locationDomain.url
     )
 
-    fun toLocationDomain() = LocationDomain(
+    fun toCharacterLocationDomain() = CharacterLocationDomain(
         name = name,
         url = url
     )

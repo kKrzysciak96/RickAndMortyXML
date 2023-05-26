@@ -1,7 +1,7 @@
 package com.example.rickandmortyxml.features.characters.data.model
 
 import com.example.rickandmortyxml.features.characters.domain.model.CharacterDomain
-import com.example.rickandmortyxml.features.characters.domain.model.LocationDomain
+import com.example.rickandmortyxml.features.characters.domain.model.CharacterLocationDomain
 import com.example.rickandmortyxml.features.characters.domain.model.OriginDomain
 import com.google.gson.annotations.SerializedName
 
@@ -12,7 +12,7 @@ data class CharacterRemote(
     @SerializedName("gender") val gender: String,
     @SerializedName("id") val id: Int,
     @SerializedName("image") val image: String,
-    @SerializedName("location") val location: LocationRemote,
+    @SerializedName("location") val location: CharacterLocationRemote,
     @SerializedName("name") val name: String,
     @SerializedName("origin") val origin: OriginRemote,
     @SerializedName("species") val species: String,
@@ -26,7 +26,7 @@ data class CharacterRemote(
         gender = gender,
         id = id,
         image = image,
-        location = location.toLocationDomain(),
+        location = location.toCharacterLocationDomain(),
         name = name,
         origin = origin.toOriginDomain(),
         species = species,
@@ -36,11 +36,11 @@ data class CharacterRemote(
     )
 }
 
-data class LocationRemote(
+data class CharacterLocationRemote(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) {
-    fun toLocationDomain() = LocationDomain(
+    fun toCharacterLocationDomain() = CharacterLocationDomain(
         name = name,
         url = url
     )

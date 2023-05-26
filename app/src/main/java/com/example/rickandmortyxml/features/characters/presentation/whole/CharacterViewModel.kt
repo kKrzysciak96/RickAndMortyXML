@@ -21,9 +21,7 @@ class CharacterViewModel(
 
     private val _characters by lazy {
         MutableLiveData<List<CharacterDomain>>().also {
-            getAllCharacters(
-                it
-            )
+            getAllCharacters(it)
         }
     }
 
