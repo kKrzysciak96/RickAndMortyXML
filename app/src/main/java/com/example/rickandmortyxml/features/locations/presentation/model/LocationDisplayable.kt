@@ -23,4 +23,5 @@ data class LocationDisplayable(
         type = locationDomain.type,
         url = locationDomain.url
     )
+    companion object
 }

@@ -5,7 +5,7 @@
     <string name="internal">Internal Error</string>
     <string name="bad_request">Bad Request</string>
     <string name="unknown">Unknown</string>
-    <string name="title_activity_main_bottom_nav">RAMxml</string>
+    <string name="title_activity_main_bottom_nav">RickAndMortyXml</string>
     <string name="title_character">Character</string>
     <string name="title_episode">Episode</string>
     <string name="title_location">Location</string>

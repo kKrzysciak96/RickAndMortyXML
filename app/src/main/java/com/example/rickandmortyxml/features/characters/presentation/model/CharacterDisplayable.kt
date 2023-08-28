@@ -35,6 +35,7 @@ data class CharacterDisplayable(
         type = characterDomain.type,
         url = characterDomain.url
     )
+    companion object
 }
 
 @Parcelize
@@ -46,6 +47,8 @@ data class CharacterLocationDisplayable(
         name = locationDomain.name,
         url = locationDomain.url
     )
+
+    companion object
 }
 
 @Parcelize
@@ -57,4 +60,6 @@ data class OriginDisplayable(
         name = originDomain.name,
         url = originDomain.url
     )
+
+    companion object
 }

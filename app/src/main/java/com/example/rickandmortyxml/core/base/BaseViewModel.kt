@@ -17,7 +17,6 @@ open class BaseViewModel(private val errorMapper: ErrorMapper) : ViewModel(),
     val uiState: LiveData<UiState>
         get() = _uiState
 
-
     protected fun setPendingState() {
         _uiState.value = UiState.PendingState
     }

@@ -8,6 +8,8 @@ data class LocationDomain(
     val residents: List<String>,
     val type: String,
     val url: String
-)
+) {
+    companion object
+}
 
 

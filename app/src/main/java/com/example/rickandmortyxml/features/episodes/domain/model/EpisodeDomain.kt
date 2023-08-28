@@ -8,4 +8,6 @@ data class EpisodeDomain(
     val id: Int,
     val name: String,
     val url: String
-)
+) {
+    companion object
+}

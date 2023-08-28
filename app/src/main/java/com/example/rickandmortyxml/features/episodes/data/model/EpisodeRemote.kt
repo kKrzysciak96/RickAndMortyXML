@@ -13,6 +13,7 @@ data class EpisodeRemote(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) {
+    companion object
     fun toEpisodeDomain() = EpisodeDomain(
         airDate = airDate,
         characters = characters,
@@ -22,4 +23,5 @@ data class EpisodeRemote(
         name = name,
         url = url
     )
+
 }

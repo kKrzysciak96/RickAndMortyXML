@@ -14,14 +14,20 @@ data class CharacterDomain(
     val status: String,
     val type: String,
     val url: String
-)
+) {
+    companion object
+}
 
 data class CharacterLocationDomain(
     val name: String,
     val url: String
-)
+) {
+    companion object
+}
 
 data class OriginDomain(
     val name: String,
     val url: String
-)
+) {
+    companion object
+}

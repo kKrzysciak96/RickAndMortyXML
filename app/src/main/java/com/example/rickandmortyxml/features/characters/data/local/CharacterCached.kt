@@ -55,6 +55,8 @@ data class CharacterCached(
         type = type,
         url = url
     )
+
+    companion object
 }
 
 data class CharacterLocationCached(
@@ -66,6 +68,7 @@ data class CharacterLocationCached(
         url = locationDomain.url
     )
 
+    companion object
     fun toCharacterLocationDomain() = CharacterLocationDomain(
         name = name,
         url = url
@@ -81,10 +84,13 @@ data class OriginCached(
         url = originDomain.url
     )
 
+    companion object
+
     fun toOriginDomain() = OriginDomain(
         name = name,
         url = url
     )
+
 }
 
 

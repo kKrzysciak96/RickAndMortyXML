@@ -26,6 +26,8 @@ data class LocationCached(
         url = locationDomain.url
     )
 
+    companion object
+
     fun toLocationDomain() = LocationDomain(
         created = created,
         dimension = dimension,

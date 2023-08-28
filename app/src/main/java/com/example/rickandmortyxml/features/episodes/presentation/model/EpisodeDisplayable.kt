@@ -23,4 +23,5 @@ data class EpisodeDisplayable(
         name = episodeDomain.name,
         url = episodeDomain.url
     )
+    companion object
 }

@@ -34,4 +34,6 @@ data class EpisodeCached(
         name = name,
         url = url
     )
+
+    companion object
 }

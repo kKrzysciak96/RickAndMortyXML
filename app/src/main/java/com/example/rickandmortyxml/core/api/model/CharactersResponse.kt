@@ -6,11 +6,15 @@ import com.google.gson.annotations.SerializedName
 data class CharactersResponse(
     @SerializedName("info") val info: CharacterRemoteInfo,
     @SerializedName("results") val results: List<CharacterRemote>
-)
+) {
+    companion object
+}
 
 data class CharacterRemoteInfo(
     @SerializedName("count") val count: Int,
     @SerializedName("pages") val pages: Int,
     @SerializedName("next") val next: String?,
     @SerializedName("prev") val prev: String?
-)
+) {
+    companion object
+}
