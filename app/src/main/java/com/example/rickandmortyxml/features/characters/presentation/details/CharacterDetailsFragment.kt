@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.rickandmortyxml.R
 import com.example.rickandmortyxml.core.base.BaseFragment
 import com.example.rickandmortyxml.databinding.FragmentCharacterDetailsBinding
@@ -35,8 +36,16 @@ class CharacterDetailsFragment :
     }
 
     private fun observeCharacter() {
-        viewModel.character.observe(this) {
-            binding.characterName.text = it.name
+        viewModel.character.observe(this) { character ->
+            binding.run {
+                Glide.with(root)
+                    .load(character.image)
+                    .into(characterImage)
+                characterNameContent.text = character.name
+                characterSpeciesContent.text = character.species
+                characterStatusContent.text = character.status
+                characterGenderContent.text = character.gender
+            }
         }
     }
 
@@ -48,9 +57,21 @@ class CharacterDetailsFragment :
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setOnPhotoClickListener()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun setOnPhotoClickListener() {
+        binding.characterImage.setOnClickListener {
+            viewModel.zoomPhotoOnClick()
+        }
     }
 
 

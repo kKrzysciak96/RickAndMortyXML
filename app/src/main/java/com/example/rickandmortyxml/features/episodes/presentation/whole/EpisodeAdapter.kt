@@ -32,6 +32,7 @@ class EpisodeAdapter : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() 
         fun bind(episode: EpisodeDisplayable) {
             with(binding) {
                 episodeName.text = episode.name
+                episodeDescription.text = episode.episode
                 listener?.let { listener -> root.setOnClickListener { listener(episode) } }
             }
         }

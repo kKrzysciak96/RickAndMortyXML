@@ -14,4 +14,6 @@ interface RickAndMortyApi {
 
     @GET("location")
     suspend fun getAllLocations(): LocationsResponse
+
+
 }

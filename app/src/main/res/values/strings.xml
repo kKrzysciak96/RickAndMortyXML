@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">RickAndMortyXML</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="internal">Internal Error</string>
     <string name="bad_request">Bad Request</string>
@@ -9,4 +8,12 @@
     <string name="title_character">Character</string>
     <string name="title_episode">Episode</string>
     <string name="title_location">Location</string>
+    <string name="character_name">Name:</string>
+    <string name="character_species">Species:</string>
+    <string name="character_status">Status:</string>
+    <string name="character_gender">Gender:</string>
+    <string name="character_name_content">unknown</string>
+    <string name="character_species_content">unknown</string>
+    <string name="character_status_content">unknown</string>
+    <string name="character_gender_content">unknown</string>
 </resources>

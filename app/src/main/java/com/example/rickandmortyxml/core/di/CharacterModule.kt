@@ -9,6 +9,8 @@ import com.example.rickandmortyxml.features.characters.data.local.CharacterDao
 import com.example.rickandmortyxml.features.characters.data.repository.CharacterRepositoryImpl
 import com.example.rickandmortyxml.features.characters.domain.CharacterRepository
 import com.example.rickandmortyxml.features.characters.domain.GetCharacterUseCase
+import com.example.rickandmortyxml.features.characters.navigation.CharacterDetailsNavigator
+import com.example.rickandmortyxml.features.characters.navigation.CharacterDetailsNavigatorImpl
 import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigator
 import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigatorImpl
 import com.example.rickandmortyxml.features.characters.presentation.details.CharacterDetailsFragment
@@ -16,6 +18,8 @@ import com.example.rickandmortyxml.features.characters.presentation.details.Char
 import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterAdapter
 import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterFragment
 import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterViewModel
+import com.example.rickandmortyxml.features.characters.presentation.zoom.ZoomedPhotoDialog
+import com.example.rickandmortyxml.features.characters.presentation.zoom.ZoomedPhotoDialogViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -45,6 +49,10 @@ val characterModule = module {
     }
     factory { CharacterAdapter() }
     factory { CharacterFragment() }
-    viewModel { CharacterDetailsViewModel(get<ErrorMapper>()) }
+    factory<CharacterDetailsNavigator> { CharacterDetailsNavigatorImpl(get<FragmentNavigator>()) }
+    viewModel { CharacterDetailsViewModel(get<CharacterDetailsNavigator>(), get<ErrorMapper>()) }
     factory { CharacterDetailsFragment() }
+
+    viewModel { ZoomedPhotoDialogViewModel() }
+    factory { ZoomedPhotoDialog() }
 }

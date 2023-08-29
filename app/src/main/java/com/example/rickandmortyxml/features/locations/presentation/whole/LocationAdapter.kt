@@ -27,6 +27,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
         fun bind(location: LocationDisplayable) {
             with(binding) {
                 locationName.text = location.name
+                locationType.text = location.type
                 listener?.let { listener -> root.setOnClickListener { listener(location) } }
             }
         }

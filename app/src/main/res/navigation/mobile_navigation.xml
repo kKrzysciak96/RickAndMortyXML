@@ -38,7 +38,11 @@
         android:id="@+id/characterDetailsFragment"
         android:name="com.example.rickandmortyxml.features.characters.presentation.details.CharacterDetailsFragment"
         android:label="fragment_character_details"
-        tools:layout="@layout/fragment_character_details" />
+        tools:layout="@layout/fragment_character_details">
+        <action
+            android:id="@+id/action_zoom_photo"
+            app:destination="@id/zoomedPhotoDialog" />
+    </fragment>
     <fragment
         android:id="@+id/episodeDetailsFragment"
         android:name="com.example.rickandmortyxml.features.episodes.presentation.details.EpisodeDetailsFragment"
@@ -49,4 +53,12 @@
         android:name="com.example.rickandmortyxml.features.locations.presentation.details.LocationDetailsFragment"
         android:label="fragment_location_details"
         tools:layout="@layout/fragment_location_details" />
+    <dialog
+        android:id="@+id/zoomedPhotoDialog"
+        android:name="com.example.rickandmortyxml.features.characters.presentation.zoom.ZoomedPhotoDialog"
+        android:label="ZoomedPhotoDialog">
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
+    </dialog>
 </navigation>
