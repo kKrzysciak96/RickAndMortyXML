@@ -67,12 +67,9 @@ class CharacterDetailsFragment :
         _binding = null
     }
 
-
     private fun setOnPhotoClickListener() {
         binding.characterImage.setOnClickListener {
             viewModel.zoomPhotoOnClick()
         }
     }
-
-
 }

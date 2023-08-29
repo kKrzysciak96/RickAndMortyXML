@@ -5,6 +5,7 @@ import com.example.rickandmortyxml.core.exception.ErrorMapper
 import com.example.rickandmortyxml.core.exception.ErrorWrapper
 import com.example.rickandmortyxml.core.navigation.FragmentNavigator
 import com.example.rickandmortyxml.core.network.NetworkStateProvider
+import com.example.rickandmortyxml.features.characters.domain.GetMultipleCharactersUseCase
 import com.example.rickandmortyxml.features.episodes.data.local.EpisodeDao
 import com.example.rickandmortyxml.features.episodes.data.repository.EpisodeRepositoryImpl
 import com.example.rickandmortyxml.features.episodes.domain.EpisodeRepository
@@ -46,6 +47,6 @@ val episodeModule = module {
     factory { EpisodeAdapter() }
     factory { EpisodeFragment() }
 
-    viewModel { EpisodeDetailsViewModel(get<ErrorMapper>()) }
+    viewModel { EpisodeDetailsViewModel(get<GetMultipleCharactersUseCase>(), get<ErrorMapper>()) }
     factory { EpisodeDetailsFragment }
 }

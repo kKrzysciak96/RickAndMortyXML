@@ -5,6 +5,7 @@ import com.example.rickandmortyxml.core.exception.ErrorMapper
 import com.example.rickandmortyxml.core.exception.ErrorWrapper
 import com.example.rickandmortyxml.core.navigation.FragmentNavigator
 import com.example.rickandmortyxml.core.network.NetworkStateProvider
+import com.example.rickandmortyxml.features.characters.domain.GetMultipleCharactersUseCase
 import com.example.rickandmortyxml.features.locations.data.local.LocationDao
 import com.example.rickandmortyxml.features.locations.data.repository.LocationRepositoryImpl
 import com.example.rickandmortyxml.features.locations.domain.GetLocationUseCase
@@ -45,6 +46,6 @@ val locationModule = module {
     }
     factory { LocationAdapter() }
     factory { LocationFragment() }
-    viewModel { LocationDetailsViewModel(get<ErrorMapper>()) }
+    viewModel { LocationDetailsViewModel(get<GetMultipleCharactersUseCase>(), get<ErrorMapper>()) }
     factory { LocationDetailsFragment() }
 }

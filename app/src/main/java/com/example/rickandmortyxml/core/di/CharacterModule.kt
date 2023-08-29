@@ -9,6 +9,7 @@ import com.example.rickandmortyxml.features.characters.data.local.CharacterDao
 import com.example.rickandmortyxml.features.characters.data.repository.CharacterRepositoryImpl
 import com.example.rickandmortyxml.features.characters.domain.CharacterRepository
 import com.example.rickandmortyxml.features.characters.domain.GetCharacterUseCase
+import com.example.rickandmortyxml.features.characters.domain.GetMultipleCharactersUseCase
 import com.example.rickandmortyxml.features.characters.navigation.CharacterDetailsNavigator
 import com.example.rickandmortyxml.features.characters.navigation.CharacterDetailsNavigatorImpl
 import com.example.rickandmortyxml.features.characters.navigation.CharacterNavigator
@@ -37,6 +38,7 @@ val characterModule = module {
 
     //domain
     factory { GetCharacterUseCase(get<CharacterRepository>()) }
+    factory { GetMultipleCharactersUseCase(get<CharacterRepository>()) }
 
     //presentation
     factory<CharacterNavigator> { CharacterNavigatorImpl(get<FragmentNavigator>()) }

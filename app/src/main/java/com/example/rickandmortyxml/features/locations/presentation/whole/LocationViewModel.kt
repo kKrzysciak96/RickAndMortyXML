@@ -27,6 +27,7 @@ class LocationViewModel(
     val location: LiveData<List<LocationDisplayable>>
         get() = _locations.map { locations -> locations.map { LocationDisplayable(it) } }
 
+
     private fun getAllLocations(mutableLiveData: MutableLiveData<List<LocationDomain>>) {
         setPendingState()
         getLocationUseCase(params = Unit, scope = viewModelScope) { listResult ->

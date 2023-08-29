@@ -4,4 +4,6 @@ import com.example.rickandmortyxml.features.locations.domain.model.LocationDomai
 
 interface LocationRepository {
     suspend fun getAllLocations(): List<LocationDomain>
+    suspend fun getMultipleLocations(): List<LocationDomain>
+
 }

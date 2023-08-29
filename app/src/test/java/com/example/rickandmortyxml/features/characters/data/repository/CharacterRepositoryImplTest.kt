@@ -6,6 +6,7 @@ import com.example.rickandmortyxml.core.exception.ErrorWrapper
 import com.example.rickandmortyxml.core.network.NetworkStateProvider
 import com.example.rickandmortyxml.features.characters.data.local.CharacterCached
 import com.example.rickandmortyxml.features.characters.data.local.CharacterDao
+import com.example.rickandmortyxml.features.characters.data.model.CharacterRemote
 import com.example.rickandmortyxml.features.characters.domain.CharacterRepository
 import com.example.rickandmortyxml.features.mockk.mock
 import io.mockk.coEvery
@@ -37,6 +38,30 @@ internal class CharacterRepositoryImplTest {
     }
 
     @Test
+    fun `GIVEN network is connected WHEN multiple characters request THEN fetch multiple data from API`() {
+        //given
+        val params = "dummy data"
+        val api = mockk<RickAndMortyApi>() {
+            coEvery { getMultipleCharacters(params) } returns listOf(
+                CharacterRemote.mock(),
+                CharacterRemote.mock(),
+                CharacterRemote.mock()
+            )
+        }
+        val dao = mockk<CharacterDao>(relaxed = true)
+        val networkStateProvider = mockk<NetworkStateProvider>() {
+            every { isNetworkAvailable() } returns true
+        }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
+        val repository: CharacterRepository =
+            CharacterRepositoryImpl(api, dao, networkStateProvider, errorWrapper)
+        //when
+        runBlocking { repository.getMultipleCharacters(params) }
+        //then
+        coVerify { api.getMultipleCharacters(params) }
+    }
+
+    @Test
     fun `GIVEN network is connected AND successful data fetched WHEN characters request THEN save data to local database`() {
         //given
         val api = mockk<RickAndMortyApi>() {
@@ -51,6 +76,30 @@ internal class CharacterRepositoryImplTest {
             CharacterRepositoryImpl(api, dao, networkStateProvider, errorWrapper)
         //when
         runBlocking { repository.getAllCharacters() }
+        //then
+        coVerify { dao.saveAllCharacters(*anyVararg()) }
+    }
+
+    @Test
+    fun `GIVEN network is connected AND successful data fetched WHEN multiple characters request THEN save multiple data to local database`() {
+        //given
+        val params = "dummy data"
+        val api = mockk<RickAndMortyApi>() {
+            coEvery { getMultipleCharacters(params) } returns listOf(
+                CharacterRemote.mock(),
+                CharacterRemote.mock(),
+                CharacterRemote.mock()
+            )
+        }
+        val dao = mockk<CharacterDao>(relaxed = true)
+        val networkStateProvider = mockk<NetworkStateProvider>() {
+            every { isNetworkAvailable() } returns true
+        }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
+        val repository: CharacterRepository =
+            CharacterRepositoryImpl(api, dao, networkStateProvider, errorWrapper)
+        //when
+        runBlocking { repository.getMultipleCharacters(params) }
         //then
         coVerify { dao.saveAllCharacters(*anyVararg()) }
     }
@@ -74,6 +123,30 @@ internal class CharacterRepositoryImplTest {
             CharacterRepositoryImpl(api, dao, networkStateProvider, errorWrapper)
         //when
         runBlocking { repository.getAllCharacters() }
+        //then
+        coVerify { dao.getAllCharacters() }
+    }
+
+    @Test
+    fun `GIVEN network is disconnected WHEN multiple characters request THEN fetch multiple data from local database`() {
+        //given
+        val params = "1,2"
+        val api = mockk<RickAndMortyApi>(relaxed = true)
+        val dao = mockk<CharacterDao>() {
+            coEvery { getAllCharacters() } returns listOf(
+                CharacterCached.mock(),
+                CharacterCached.mock(),
+                CharacterCached.mock()
+            )
+        }
+        val networkStateProvider = mockk<NetworkStateProvider>() {
+            every { isNetworkAvailable() } returns false
+        }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
+        val repository: CharacterRepository =
+            CharacterRepositoryImpl(api, dao, networkStateProvider, errorWrapper)
+        //when
+        runBlocking { repository.getMultipleCharacters(params) }
         //then
         coVerify { dao.getAllCharacters() }
     }

@@ -25,6 +25,10 @@ class LocationRepositoryImpl(
         }
     }
 
+    override suspend fun getMultipleLocations(): List<LocationDomain> {
+        return emptyList()
+    }
+
     private suspend fun saveLocationsToLocal(locations: List<LocationDomain>) {
         locations
             .map { LocationCached(it) }

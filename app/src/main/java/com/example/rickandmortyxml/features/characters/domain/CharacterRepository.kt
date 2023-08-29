@@ -4,4 +4,5 @@ import com.example.rickandmortyxml.features.characters.domain.model.CharacterDom
 
 interface CharacterRepository {
     suspend fun getAllCharacters(): List<CharacterDomain>
+    suspend fun getMultipleCharacters(listOfCharacters: String): List<CharacterDomain>
 }

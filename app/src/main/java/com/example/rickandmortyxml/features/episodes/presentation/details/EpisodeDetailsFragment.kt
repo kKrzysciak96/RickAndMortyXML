@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.example.rickandmortyxml.R
 import com.example.rickandmortyxml.core.base.BaseFragment
 import com.example.rickandmortyxml.databinding.FragmentEpisodeDetailsBinding
+import com.example.rickandmortyxml.features.characters.presentation.whole.CharacterAdapter
 import com.example.rickandmortyxml.features.episodes.presentation.model.EpisodeDisplayable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -17,6 +19,7 @@ class EpisodeDetailsFragment :
     private val binding
         get() = checkNotNull(_binding) { "Binding is null" }
     override val viewModel by viewModel<EpisodeDetailsViewModel>()
+    private val characterAdapter: CharacterAdapter by inject()
 
     companion object {
         const val EPISODE_DETAILS_BUNDLE_KEY = "EPISODE_DETAILS_BUNDLE_KEY"
@@ -30,14 +33,34 @@ class EpisodeDetailsFragment :
 
     }
 
+    override fun initViews() {
+        super.initViews()
+        initRecyclerview()
+    }
+
+    private fun initRecyclerview() {
+        with(binding.castRecyclerView) {
+            adapter = characterAdapter
+            setHasFixedSize(true)
+        }
+    }
+
     override fun initObservers() {
         super.initObservers()
         observeEpisode()
+        observeCharacters()
     }
 
     private fun observeEpisode() {
         viewModel.episode.observe(this) {
             binding.episodeName.text = it.name
+            binding.episodeDescription.text = it.episode
+        }
+    }
+
+    private fun observeCharacters() {
+        viewModel.characters.observe(this) {
+            characterAdapter.setCharacters(it)
         }
     }
 

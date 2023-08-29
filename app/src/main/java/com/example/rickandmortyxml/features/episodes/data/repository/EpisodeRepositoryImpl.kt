@@ -25,6 +25,10 @@ class EpisodeRepositoryImpl(
         }
     }
 
+    override suspend fun getMultipleEpisodes(): List<EpisodeDomain> {
+        return emptyList()
+    }
+
     private suspend fun saveEpisodesToLocal(episodes: List<EpisodeDomain>) {
         episodes
             .map { EpisodeCached(it) }

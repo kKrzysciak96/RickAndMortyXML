@@ -16,4 +16,6 @@
     <string name="character_species_content">unknown</string>
     <string name="character_status_content">unknown</string>
     <string name="character_gender_content">unknown</string>
+    <string name="cast">Cast:</string>
+    <string name="residents">Residents:</string>
 </resources>

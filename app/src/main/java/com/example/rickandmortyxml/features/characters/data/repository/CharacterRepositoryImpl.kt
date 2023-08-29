@@ -25,6 +25,16 @@ class CharacterRepositoryImpl(
         }
     }
 
+    override suspend fun getMultipleCharacters(listOfCharacters: String): List<CharacterDomain> {
+        return if (networkStateProvider.isNetworkAvailable()) {
+            callOrThrow(errorWrapper) {
+                getMultipleCharactersFromRemote(listOfCharacters).also { saveCharactersToLocal(it) }
+            }
+        } else {
+            getMultipleCharactersFromLocal(listOfCharacters)
+        }
+    }
+
     private suspend fun saveCharactersToLocal(characters: List<CharacterDomain>) {
         characters
             .map { CharacterCached(it) }
@@ -34,6 +44,21 @@ class CharacterRepositoryImpl(
 
     private suspend fun getCharactersFromRemote(): List<CharacterDomain> {
         return rickAndMortyApi.getAllCharacters().results.map { it.toCharacterDomain() }
+    }
+
+    private suspend fun getMultipleCharactersFromRemote(listOfCharacters: String): List<CharacterDomain> {
+        return rickAndMortyApi.getMultipleCharacters(listOfCharacters)
+            .map { it.toCharacterDomain() }
+    }
+
+    private suspend fun getMultipleCharactersFromLocal(listOfCharacters: String): List<CharacterDomain> {
+        val allCharactersInDataBase = characterDao.getAllCharacters()
+        val characterIDList = listOfCharacters.split(",").map { it.toInt() }
+
+        val requiredCharacters = allCharactersInDataBase.filter { characterCached ->
+            characterCached.id in characterIDList
+        }
+        return requiredCharacters.map { it.toCharacterDomain() }
     }
 
     private suspend fun getCharactersFromLocal(): List<CharacterDomain> {
